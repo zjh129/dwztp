@@ -1,0 +1,82 @@
+<form id="pagerForm" method="post" action="#rel#">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="{$numPerPage}" />
+    <input type="hidden" name="keywords" value="{$keywords}" />
+    <input type="hidden" name="cat_id" value="{$valcat_id}" />
+</form>
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="{:U('Goods/index')}" method="post">
+	<div class="searchBar">
+		<ul class="searchContent">
+			<li>
+				<label>关键字：</label>
+				<input type="text" name="keywords" value="{$keywords}"/>
+			</li>
+            <li>{$cat_select}</li>
+		</ul>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+  <div class="panelBar">
+    <ul class="toolBar">
+      <php>if( ishavepower('Goods/add') ){</php><li><a class="add" href="{:U('Goods/add')}" target="navTab" rel="goodsadd" mask=true height="150" title="添加商品"><span>添加</span></a></li><php>}</php>
+      
+    </ul>
+  </div>
+  <table class="table" layoutH="138" width="100%">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>商品名称</th>
+        <th>货号</th>
+        <th>价格</th>
+        <th>上架</th>
+        <th>库存</th>
+        <th>操作</th>
+      </tr>
+      
+    </thead>
+    <tbody>
+    <volist name="list" id="vo">
+        
+      <tr target="type_id" rel="{$vo.goods_id}">
+        <td>{$vo.goods_id}</td>
+        <td>{$vo.goods_name}</td>
+        <td>{$vo.goods_sn}</td>
+        <td>{$vo.shop_price}</td>
+        <td><if condition="$vo['online_sale']==1"> 是<else />否</if></td>
+        <td>{$vo.goods_nums}</td>
+        <td>
+        <php>if( ishavepower('Goods/edit') ){</php><a title="编辑" target="navTab" mask=true href="{:U('Goods/edit',array('goods_id'=>$vo['goods_id']))}" class="btnEdit">编辑</a><php>}</php>
+        <php>if( ishavepower('Goods/del') ){</php><a title="你确定要删除此此商品吗？" target="ajaxTodo" href="{:U('Goods/del',array('goods_id'=>$vo['goods_id']))}" class="btnDel">删除</a><php>}</php>
+        
+        </td>
+      </tr>
+      
+      </volist>
+
+    </tbody>
+    
+    
+  </table>
+  <div class="panelBar">
+    <div class="pages"> <span>显示</span>
+      <select class="combox" name="numPerPage" onChange="navTabPageBreak({numPerPage:this.value})">
+          
+          <option value="5"<eq name="numPerPage" value="5"> selected="selected"</eq>>5</option>
+      	<option value="10"<eq name="numPerPage" value="10"> selected="selected"</eq>>10</option>
+        <option value="20"<eq name="numPerPage" value="20"> selected="selected"</eq>>20</option>
+        <option value="50"<eq name="numPerPage" value="50"> selected="selected"</eq>>50</option>
+        <option value="100"<eq name="numPerPage" value="100"> selected="selected"</eq>>100</option>
+        <option value="200"<eq name="numPerPage" value="200"> selected="selected"</eq>>200</option>
+      </select>
+      <span>条，共{$totalCount}条</span> </div>
+    <div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+  </div>
+</div>

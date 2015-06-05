@@ -1,0 +1,55 @@
+<h2 class="contentTitle">角色管理</h2>
+<div class="panelBar">
+  <ul class="toolBar">
+    <php>if( ishavepower('Role/add') ){</php><li><a class="add" href="{:U('Role/add')}" target="dialog" mask=true><span>添加</span></a></li><php>}</php> 
+  </ul>
+</div>
+<div id="Role_box" style="float:left; display:block; margin:10px; overflow:auto; width:800px; height:400px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+  <ul class="tree treeFolder expand">
+    <volist name="roleList" id="vo">
+      <li><a>{$vo.name}</a> <span>
+      <php>if( ishavepower('Role/add') ){</php><a title="增加【{$vo.name}】子角色" target="dialog" mask=true height="315" width="600" href="{:U('Role/add')}?pid={$vo.id}" class="btnAdd">增加子角色</a><php>}</php> 
+      <php>if( ishavepower('Role/edit') ){</php><a title="编辑" target="dialog" mask=true href="{:U('Role/edit')}?id={$vo.id}" class="btnEdit">编辑</a><php>}</php> 
+      <php>if( ishavepower('Role/selectnode') ){</php><a title="角色授权" target="dialog" mask=true href="{:U('Role/selectnode',array('roleid' => $vo['id'] ))}" class="btnInfo">角色授权</a><php>}</php> 
+      <php>if( ishavepower('Role/selectuser') ){</php><a title="选择用户" target="dialog" mask=true href="{:U('Role/selectuser',array('roleid' => $vo['id'] ))}" class="btnAssign">选择用户</a><php>}</php> 
+      <php>if( ishavepower('Role/del') ){</php><a title="你确定删除【{$vo.name}】角色吗？" target="ajaxTodo" href="{:U('Role/del')}?id={$vo.id}" class="btnDel">删除</a><php>}</php> 
+      </span>
+        <notempty name="vo._child">
+          <ul>
+            <volist name="vo._child" id="chivo1">
+              <li><a>{$chivo1.name}</a> <span>
+              <php>if( ishavepower('Role/add') ){</php><a title="增加【{$chivo1.name}】子角色" target="dialog" mask=true height="315" width="600" href="{:U('Role/add')}?pid={$chivo1.id}" class="btnAdd">增加子角色</a><php>}</php> 
+              <php>if( ishavepower('Role/edit') ){</php><a title="编辑" target="dialog" mask=true href="{:U('Role/edit')}?id={$chivo1.id}" class="btnEdit">编辑</a><php>}</php> 
+              <php>if( ishavepower('Role/selectnode') ){</php><a title="角色授权" target="dialog" mask=true href="{:U('Role/selectnode',array('roleid' => $chivo1['id'] ))}" class="btnInfo">角色授权</a><php>}</php> 
+              <php>if( ishavepower('Role/selectuser') ){</php><a title="选择用户" target="dialog" mask=true href="{:U('Role/selectuser',array('roleid' => $chivo1['id'] ))}" class="btnAssign">选择用户</a><php>}</php> 
+              <php>if( ishavepower('Role/del') ){</php><a title="你确定删除【{$chivo1.name}】角色吗？" target="ajaxTodo" href="{:U('Role/del')}?id={$chivo1.id}" class="btnDel">删除</a></span><php>}</php> 
+                <notempty name="chivo1._child">
+                  <ul>
+                    <volist name="chivo1._child" id="chivo2">
+                      <li><a>{$chivo2.name}</a> <span>
+                      <php>if( ishavepower('Role/edit') ){</php><a title="编辑" target="dialog" mask=true href="{:U('Role/edit')}?id={$chivo2.id}" class="btnEdit">编辑</a><php>}</php> 
+                      <php>if( ishavepower('Role/selectnode') ){</php><a title="角色授权" target="dialog" mask=true href="{:U('Role/selectnode',array('roleid' => $chivo2['id'] ))}" class="btnInfo">角色授权</a><php>}</php> 
+                      <php>if( ishavepower('Role/selectuser') ){</php><a title="选择用户" target="dialog" mask=true href="{:U('Role/selectuser',array('roleid' => $chivo2['id'] ))}" class="btnAssign">选择用户</a><php>}</php> 
+                      <php>if( ishavepower('Role/del') ){</php><a title="你确定要删除【{$chivo2.name}】角色吗？" target="ajaxTodo" href="{:U('Role/del')}?id={$chivo2.id}" class="btnDel">删除</a><php>}</php> 
+                      </span> </li>
+                    </volist>
+                  </ul>
+                </notempty>
+              </li>
+            </volist>
+          </ul>
+        </notempty>
+      </li>
+    </volist>
+  </ul>
+</div>
+<style type="text/css">
+#Role_box li > div{width:70%;float:left;}
+#Role_box li > span{width:220px;float:right; text-align:right;}
+</style>
+<script type="text/javascript">
+$(function(){
+	$("#Role_box li span a").css({"display":"inline-block","text-indent":"1000em","float":"none"});
+	$("#Role_box .btnAssign,.btnInfo").attr({"width":"300","height":"500"});
+	});
+</script>

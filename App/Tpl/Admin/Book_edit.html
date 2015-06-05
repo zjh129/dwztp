@@ -1,0 +1,52 @@
+<div class="pageContent">
+  <form method="post" action="{:U('Book/edit')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+  <input type="hidden" name="id" value="{$data.id}" />
+  <input type="hidden" name="disp" value="1" />
+    <div class="pageFormContent" layoutH="57">
+      <dl>
+        <dt>标题</dt>
+        <dd>
+        {$data.title}
+        </dd>
+      </dl>
+      <dl>
+        <dt>联系方式：</dt>
+        <dd>
+          {$data.tel}
+        </dd>
+      </dl>
+      
+      <dl>
+        <dt>留言内容：</dt>
+        <dd>
+        	{$data.content}
+        </dd>
+      </dl>
+      <dl style="height:auto;">
+        <dt>回复内容：</dt>
+        <dd>
+          <textarea class="required" cols="45" rows="5" name="answer">{$data.answer}</textarea>
+        </dd>
+      </dl>
+    </div>
+    <div class="formBar">
+      <ul>
+        <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+        <li>
+          <div class="buttonActive">
+            <div class="buttonContent">
+              <button type="submit">保存</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="button">
+            <div class="buttonContent">
+              <button type="button" class="close">取消</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,71 @@
+<form id="pagerForm" method="post" action="#rel#">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="{$numPerPage}" />
+    <input type="hidden" name="keywords" value="{$keywords}" />
+</form>
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="{:U('GoodsType/index')}" method="post">
+	<div class="searchBar">
+		<ul class="searchContent">
+			<li>
+				<label>关键字：</label>
+				<input type="text" name="keywords" value="{$keywords}"/>
+			</li>
+		</ul>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+  <div class="panelBar">
+    <ul class="toolBar">
+      <php>if( ishavepower('GoodsType/add') ){</php><li><a class="add" href="{:U('GoodsType/add')}" target="dialog" mask=true height="150" title="添加商品类型"><span>添加</span></a></li><php>}</php>
+      <php>if( ishavepower('GoodsType/edit') ){</php><li><a class="edit" href="{:U('GoodsType/edit')}?type_id={type_id}" target="dialog" mask=true title="编辑商品类型" warn="请指定要修改的商品类型"><span>修改</span></a></li><php>}</php>
+      <php>if( ishavepower('GoodsType/update_goodstype_cache') ){</php><li><a class="icon" href="{:U('GoodsType/update_goodstype_cache')}" target="ajaxTodo" ><span>生成缓存</span></a></li><php>}</php>
+    </ul>
+  </div>
+  <table class="table" layoutH="138" width="100%">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>商品类型名称</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+    <volist name="list" id="vo">
+      <tr target="type_id" rel="{$vo.type_id}">
+        <td>{$vo.type_id}</td>
+        <td>{$vo.type_name}</td>
+        <td>
+         <php>if( ishavepower('GoodsType/c_enable') ){</php>
+         <eq name="vo.is_enable" value="1"><a target="ajaxTodo" href="{:U('GoodsType/c_enable')}?act=0&type_id={$vo.type_id}"><img src="__PUBLIC__/images/ok.gif" /></a><else/><a target="ajaxTodo" href="{:U('GoodsType/c_enable')}?act=1&type_id={$vo.type_id}"><img src="__PUBLIC__/images/locked.gif" /></eq>
+         <php>}</php>
+         </td>
+        <td>
+        <php>if( ishavepower('Attribute/index') ){</php><a title="商品属性列表" target="navTab" href="{:U('Attribute/index?type_id='.$vo['type_id'])}" class="btnLook" rel="attribute">商品属性列表</a><php>}</php>
+        <php>if( ishavepower('GoodsType/edit') ){</php><a title="编辑" target="dialog" mask=true href="{:U('GoodsType/edit')}?type_id={$vo.type_id}" class="btnEdit">编辑</a><php>}</php>
+        <php>if( ishavepower('GoodsType/del') ){</php><a title="你确定要删除此此商品类型吗？" target="ajaxTodo" href="{:U('GoodsType/del')}?type_id={$vo.type_id}" class="btnDel">删除</a></td><php>}</php>
+      </tr>
+      </volist>
+    </tbody>
+  </table>
+  <div class="panelBar">
+    <div class="pages"> <span>显示</span>
+      <select class="combox" name="numPerPage" onChange="navTabPageBreak({numPerPage:this.value})">
+       <option value="5"<eq name="numPerPage" value="5"> selected="selected"</eq>>5</option>
+      	<option value="10"<eq name="numPerPage" value="10"> selected="selected"</eq>>10</option>
+        <option value="20"<eq name="numPerPage" value="20"> selected="selected"</eq>>20</option>
+        <option value="50"<eq name="numPerPage" value="50"> selected="selected"</eq>>50</option>
+        <option value="100"<eq name="numPerPage" value="100"> selected="selected"</eq>>100</option>
+        <option value="200"<eq name="numPerPage" value="200"> selected="selected"</eq>>200</option>
+      </select>
+      <span>条，共{$totalCount}条</span> </div>
+    <div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+  </div>
+</div>

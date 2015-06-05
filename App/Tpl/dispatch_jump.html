@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$msgTitle}</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/operatetip.css" />
+<meta http-equiv='Refresh' content='{$waitSecond};URL={$jumpUrl}'>
+</head>
+
+<body>
+<div class="wrapper <present name="message">success<else/>error</present>">
+	<div class="box">
+		<div class="content">
+			<strong class="title"><present name="message">{$msgTitle}<else/>{$msgTitle}</present></strong>
+			<div class="info">
+            <present name="message" >{$message}<else/>{$error}</present></div>
+		</div>
+		<div class="buttons">
+			<a class="buttonwrap" href="/"><span class="inner"><strong class="button">返回首页</strong></span></a>
+			<a class="buttonwrap" href="{$jumpUrl}"><span class="inner"><strong class="button">跳过等待</strong></span></a>
+            <a class="buttonwrap" href="javascript:void(0);" onclick="javascript:history.back(1);"><span class="inner"><strong class="button">返回上一页</strong></span></a>
+		</div>
+	</div>
+</div>
+</body>
+</html>

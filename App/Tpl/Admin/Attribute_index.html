@@ -1,0 +1,96 @@
+<form id="pagerForm" method="post" action="#rel#">
+  <input type="hidden" name="pageNum" value="1" />
+  <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+  <input type="hidden" name="keywords" value="{$keywords}" />
+  <input type="hidden" name="type_id" value="{$type_id}" />
+</form>
+<div class="pageHeader">
+  <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="{:U('Attribute/index')}" method="post">
+    <div class="searchBar">
+      <ul class="searchContent">
+        <li>
+          <label>关键字：</label>
+          <input type="text" name="keywords" value=""/>
+        </li>
+        <li>
+          <label>商品类型：</label>
+          <select class="combox" name="type_id">
+            <volist name="goodstype_list" id="vo"> <option value="{$vo.type_id}"
+              <eq name="vo.type_id" value="$type_id"> selected</eq>
+              >{$vo.type_name}
+              </option>
+            </volist>
+          </select>
+        </li>
+      </ul>
+      <div class="subBar">
+        <ul>
+          <li>
+            <div class="buttonActive">
+              <div class="buttonContent">
+                <button type="submit">检索</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="pageContent">
+  <div class="panelBar">
+    <ul class="toolBar">
+      <php>if( ishavepower('Attribute/add') ){</php><li><a class="add" href="{:U('Attribute/add')}?type_id={$type_id}" target="dialog" height="400" width="750" mask=true><span>添加</span></a></li><php>}</php>
+      <php>if( ishavepower('Attribute/edit') ){</php><li><a class="edit" href="{:U('Attribute/edit')}?type_id={$type_id}&attr_id={attr_id}" target="dialog" height="400" width="750" mask=true warn="请选择一条属性"><span>修改</span></a></li><php>}</php>
+      <php>if( ishavepower('Attribute/batchdel') ){</php><li><a title="确实要删除这些属性吗?" target="selectedTodo" rel="ids" postType="string" href="{:U('Attribute/batchdel?type_id='.$type_id)}" class="delete"><span>批量删除</span></a></li><php>}</php>
+    </ul>
+  </div>
+  <table class="table" layoutH="138" width="100%">
+    <thead>
+      <tr>
+        <th><input type="checkbox" group="ids" class="checkboxCtrl">
+          <label>编号</label></th>
+        <th>属性名称</th>
+        <th>商品类型名称</th>
+        <th>属性值的录入方式</th>
+        <th>可选值列表</th>
+        <th>排序</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <volist name="list" id="vo">
+        <tr target="attr_id" rel="{$vo.attr_id}">
+          <td><input name="ids" value="{$vo.attr_id}" type="checkbox">
+            {$vo.attr_id}</td>
+          <td>{$vo.attr_name}</td>
+          <td>{$vo.type_name}</td>
+          <td>
+          <switch name="vo.attr_input_type">
+          <case value="0">手工录入</case>
+          <case value="1">从列表中选择</case>
+          <case value="2">多行文本框</case>
+          </switch></td>
+          <td>{$vo.attr_value|str_replace=PHP_EOL,',',###}</td>
+          <td>{$vo.sort}</td>
+          <td>
+          <php>if( ishavepower('Attribute/edit') ){</php><a title="编辑" target="dialog" mask=true height="400" width="750" href="{:U('Attribute/edit')}?type_id={$type_id}&attr_id={$vo.attr_id}" class="btnEdit">编辑</a><php>}</php>
+          <php>if( ishavepower('Attribute/del') ){</php><a title="删除" target="ajaxTodo" href="{:U('Attribute/del')}?type_id={$type_id}&attr_id={$vo.attr_id}" class="btnDel">删除</a><php>}</php>
+          </td>
+        </tr>
+      </volist>
+    </tbody>
+  </table>
+  <div class="panelBar">
+    <div class="pages"> <span>显示</span>
+      <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+        <option value="10"<eq name="numPerPage" value="10"> selected="selected"</eq>>10</option>
+        <option value="20"<eq name="numPerPage" value="20"> selected="selected"</eq>>20</option>
+        <option value="50"<eq name="numPerPage" value="50"> selected="selected"</eq>>50</option>
+        <option value="100"<eq name="numPerPage" value="100"> selected="selected"</eq>>100</option>
+        <option value="200"<eq name="numPerPage" value="200"> selected="selected"</eq>>200</option>
+      </select>
+      <span>条，共{$totalCount}条</span> </div>
+   		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+  </div>
+</div>

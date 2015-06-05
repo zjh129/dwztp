@@ -1,0 +1,170 @@
+body, p
+{
+	margin: 0;
+}
+
+body
+{
+	background-color: #FFF;
+	color: #000;
+}
+
+body, table
+{
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+	line-height: 150%;
+}
+
+input, select, textarea
+{
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+}
+
+
+
+A:link
+{
+	text-decoration: none;
+	color: #036;
+}
+A:visited
+{
+	text-decoration: none;
+	color: #036;
+}
+A:hover
+{
+	text-decoration: underline;
+	color: #F60;
+}
+
+A.menuChild:link
+{
+	text-decoration:none;
+	color:#036;
+}
+A.menuChild:visited
+{
+	text-decoration:none;
+	color:#036;
+}
+A.menuChild:hover
+{
+	text-decoration:underline;
+	color:#F60;
+}
+
+A.menuParent:link
+{
+	text-decoration:none;
+	color:#000;
+}
+A.menuParent:visited
+{
+	text-decoration:none;
+	color:#000;
+}
+A.menuParent:hover
+{
+	text-decoration:none;
+	color:#F60;
+}
+
+
+
+table.position
+{
+	width: 100%;
+}
+tr.position
+{
+	height: 25px;
+	background-color: #F4F7FC;
+}
+td.position
+{
+	padding-left: 20px;
+	border-right: 1px solid #ADCEFF;
+	border-bottom: 1px solid #ADCEFF;
+}
+
+
+table.listTable
+{
+	width: 98%;
+	background-color: #B1CEEE;
+}
+tr.listHeaderTr
+{
+	height: 25px;
+	background-color: #EBF4FD;
+	text-align: center;
+	font-weight: bold;
+}
+tr.listTr
+{
+	height: 25px;
+	background-color: #FFF;
+	text-align: center;
+}
+tr.listAlternatingTr
+{
+	height: 25px;
+	background-color: #FFFDF0;
+	text-align: center;
+}
+tr.listFooterTr
+{
+	height: 30px;
+	background-color: #EBF4FD;
+	text-align: center;
+}
+
+
+table.editTable
+{
+	width: 98%;
+	background-color: #B1CEEE;
+}
+tr.editHeaderTr
+{
+	height: 25px;
+	background-color: #EBF4FD;
+}
+td.editHeaderTd
+{
+	padding-left: 50px;
+	font-weight: bold;
+}
+tr.editTr
+{
+	height: 30px;
+}
+td.editLeftTd
+{
+	width: 150px;
+	text-align: center;
+	background-color: #FFFDF0;
+}
+td.editRightTd
+{
+	background-color: #FFF;
+	padding-left: 10px;
+}
+tr.editFooterTr
+{
+	height: 40px;
+	background-color: #EBF4FD;
+}
+td.editFooterTd
+{
+	padding-left: 150px;
+}
+
+td.copy { color:#FFF; padding-right:20px; padding-top:5px; }
+td.copy a{ color:#FFF; text-decoration:none; }
+td.copy a:link{ color:#FFF; text-decoration:none; }
+td.copy a:visited{ color:#FFF; text-decoration:none; }
+td.copy a:hover{ color:#FFF; text-decoration:underline; }

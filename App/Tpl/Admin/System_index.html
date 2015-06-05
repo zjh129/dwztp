@@ -1,0 +1,40 @@
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<php>if( ishavepower('System/add') ){</php><li><a class="add" href="{:U('System/add')}" target="dialog" mask=true title="添加系统参数"><span>添加</span></a></li><php>}</php>
+			<php>if( ishavepower('System/add') ){</php><li><a class="edit" href="{:U('System/add')}?id={sid}" target="dialog" mask=true title="修改系统参数" warn="请选择一条数据"><span>修改</span></a></li><php>}</php>
+            <php>if( ishavepower('System/create_cache') ){</php><li><a class="icon" href="{:U('System/create_cache')}" target="ajaxTodo" ><span>生成缓存</span></a></li><php>}</php>
+		</ul>
+	</div>
+	<table class="table" layoutH="138" width="100%">
+		<thead>
+			<tr>
+				<th><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+				<th orderField="accountNo" class="asc">ID</th>
+				<th orderField="accountName">名称</th>
+				<th orderField="accountKey">标识</th>
+				<th orderField="accountDes">值</th>
+				<th orderField="accountDes">字段描述</th>
+				<th>建档日期</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+        <volist name="list" id="vo">
+			<tr target="sid" rel="{$vo.id}">
+				<td><input name="ids" value="{$vo.id}" type="checkbox"></td>
+				<td>{$vo.id}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.key}</td>
+				<td>{$vo.value}</td>
+				<td>{$vo.des}</td>
+				<td>{$vo.createtime|date="Y-m-d H:i:s",###}</td>
+				<td align="center">
+					<php>if( ishavepower('System/del') ){</php><a title="删除" target="ajaxTodo" href="{:U('System/del')}?id={$vo.id}" class="btnDel">删除</a><php>}</php>
+					<php>if( ishavepower('System/add') ){</php><a title="编辑" target="dialog" mask=true title="编辑系统参数" href="{:U('System/add')}?id={$vo.id}" class="btnEdit">编辑</a><php>}</php>
+				</td>
+			</tr>
+         </volist>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,31 @@
+<div class="pageContent">
+  <form method="post" action="__ACTION__" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+    <div class="pageFormContent" layoutH="57">
+      <dl style="height:auto;">
+        <dt>课程列表值：</dt>
+        <dd>
+          <textarea class="required" cols="45" rows="5" name="courselist">{$value}</textarea><span class="info">一行为一个个选项值</span>
+        </dd>
+      </dl>
+    </div>
+    <div class="formBar">
+      <ul>
+        <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+        <li>
+          <div class="buttonActive">
+            <div class="buttonContent">
+              <button type="submit">保存</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="button">
+            <div class="buttonContent">
+              <button type="button" class="close">取消</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>

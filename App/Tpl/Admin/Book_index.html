@@ -1,0 +1,77 @@
+<form id="pagerForm" method="post" action="#rel#">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="{$numPerPage}" />
+    <input type="hidden" name="keywords" value="{$keywords}" />
+</form>
+
+
+<div class="pageHeader">
+	<form rel="pagerForm"onsubmit="return navTabSearch(this);" action="{:U('Article/index')}" method="post">
+	<div class="searchBar">
+		<table class="searchContent">
+			<tr>
+				<td>
+					关键字：<input type="text" value="{$keywords}" name="keywords" />
+				</td>
+			</tr>
+		</table>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+		  </ul>
+	  </div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+		</ul>
+	</div>
+	<table class="table" layoutH="138" width="100%">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>留言者身份</th>
+				<th>昵称</th>
+				<th>标题</th>
+				<th>联系方式</th>
+				<th>IP</th>
+				<th>留言时间</th>
+				<th align="center">是否显示</th>
+				<th align="center">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+        <volist name="list" id="vo">
+			<tr target="art_id" rel="{$vo.id}">
+				<td>{$vo.id}</td>
+				<td><empty name="vo.userid">游客<else />注册会员</empty></td>
+				<td><empty name="vo.userid">{$vo.nickname}<else /><a title="查看编辑会员" target="navTab" rel="member_edit" href="{:U('Member/edit',array('u_id'=>$vo['userid']))}">{$vo.u_name}</a></empty></td>
+				<td>{$vo.title}</td>
+				<td>{$vo.tel}</td>
+				<td>{$vo.ip}</td>
+				<td>{$vo.createtime|date="Y-m-d H:i:s",###}</td>
+				<td><eq name="vo.disp" value="1"><a target="ajaxTodo" href="{:U('Book/change_disp')}?id={$vo.id}&disp=0"><img src="__PUBLIC__/images/ok.gif" /></a><else/><a target="ajaxTodo" href="{:U('Book/change_disp')}?id={$vo.id}&disp=1"><img src="__PUBLIC__/images/error.gif" /></eq></td>
+				<td align="center">
+                    <php>if( ishavepower('Book/edit') ){</php><a title="查看回复留言" target="dialog" mask=true rel="member_edit" href="{:U('Book/edit',array('id'=>$vo['id']))}" class="btnEdit">查看回复留言</a><php>}</php>
+                    <php>if( ishavepower('Book/del') ){</php><a title="你确定删除该条留言吗？" target="ajaxTodo" href="{:U('Book/del',array('id'=>$vo['id']))}" class="btnDel">删除留言</a><php>}</php>
+                </td>
+			</tr>
+           </volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"> <span>显示</span>
+      <select class="combox" name="numPerPage" onChange="navTabPageBreak({numPerPage:this.value})">
+       <option value="5"<eq name="numPerPage" value="5"> selected="selected"</eq>>5</option>
+      	<option value="10"<eq name="numPerPage" value="10"> selected="selected"</eq>>10</option>
+        <option value="20"<eq name="numPerPage" value="20"> selected="selected"</eq>>20</option>
+        <option value="50"<eq name="numPerPage" value="50"> selected="selected"</eq>>50</option>
+        <option value="100"<eq name="numPerPage" value="100"> selected="selected"</eq>>100</option>
+        <option value="200"<eq name="numPerPage" value="200"> selected="selected"</eq>>200</option>
+      </select>
+      <span>条，共{$totalCount}条</span> </div>
+    <div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

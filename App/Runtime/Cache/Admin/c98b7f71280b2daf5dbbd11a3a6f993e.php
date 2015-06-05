@@ -1,0 +1,217 @@
+<?php if (!defined('THINK_PATH')) exit();?><h2 class="contentTitle">会员添加</h2>
+<div style="display:block; overflow:hidden; line-height:21px;">
+	<div class="tabs">
+		<div class="tabsHeader">
+			<div class="tabsHeaderContent">
+				<ul>
+      		        <li><a href="javascript:;"><span>常规信息</span></a></li>
+				</ul>
+			</div>
+		</div>
+        <form method="post" action="__ACTION__" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+		<div class="tabsContent" layoutH="115">
+			<div>
+            <div class="pageFormContent nowrap" layoutH="158">
+            <dl>
+				<dt>帐号：</dt>
+				<dd>
+					<input type="text" name="account" maxlength="20" style="width:200px;" class="required alphanumeric" />
+					<span class="info">请输入注册会员帐号</span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>密码：</dt>
+				<dd>
+					<input type="password" id="password" name="password" maxlength="20" style="width:200px;" class="required alphanumeric"  minlength="6" maxlength="20" alt="字母、数字、下划线 6-20位" />
+					<span class="info">请输入会员密码</span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>重复密码：</dt>
+				<dd>
+				  <input type="password" name="r_password" maxlength="20" style="width:200px;"  class="required" equalto="#password" />
+					<span class="info">请重复输入会员密码</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>真实姓名：</dt>
+				<dd>
+					<input type="text" name="u_name" style="width:200px;" class="required" />
+					<span class="info">请输入会员真实姓名</span>
+				</dd>
+			</dl>
+            <dl>
+			  <dt>电话号码：</dt>
+				<dd>
+				  <input type="text" name="u_phone" class="required phone" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>学校：</dt>
+				<dd>
+				  <input type="text" name="u_school" style="width:300px;" class="required" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>班级：</dt>
+				<dd>
+				  <input type="text" name="u_grade" style="width:300px;" class="required" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>是否VIP：</dt>
+				<dd>
+				  <p>
+				    <label>
+				      <input type="radio" name="u_vip" value="1" id="u_vip_0" />
+				      是</label>
+				    <label>
+				      <input name="u_vip" type="radio" id="u_vip_1" value="0" checked="checked" />
+				      否</label>
+				    <br />
+			      </p>
+				  <span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+			  <dt>地址：</dt>
+				<dd>
+				  <input type="text" name="u_address" style="width:300px;" class="" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>生日：</dt>
+				<dd>
+				  <input type="text" name="u_birthday" readonly="true" class="date" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+            	<dt>缩略图：</dt>
+                <dd>
+                <input name="u_photo" id="artadd_attachmentid" value="" type="hidden">
+				<div id="artadd_attach"></div>
+				<span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+            	<dt>图片预览：</dt>
+                <dd>
+                <img name="thumbimg" id="artadd_thumbimg" src="__PUBLIC__/images/no_picture.jpg" />
+                </dd>
+            </dl>
+            <dl>
+				<dt>QQ号码：</dt>
+				<dd>
+				  <input type="text" name="u_qq" class="digits" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>邮箱地址：</dt>
+				<dd>
+				  <input type="text" name="u_email" style="width:300px;" class="email" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+            	<dt>选择课程：</dt>
+                <dd>
+                  <label for="u_course"></label>
+                  <select name="u_course" id="u_course">
+                  	<?php if(is_array($course_config_data)): $i = 0; $__LIST__ = $course_config_data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo); ?>"><?php echo ($vo); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                  </select>
+                </dd>
+            </dl>
+            <dl>
+           	  <dt>选择拟学习时间：</dt>
+                <dd><input type="text" name="u_time" readonly="true" class="date" /></dd>
+            </dl>
+            <dl>
+            	<dt>选择拟学习班级：</dt>
+                <dd><input type="text" name="u_lever" style="width:400px;" /></dd>
+            </dl>
+            <dl>
+            	<dt>是否交费：</dt>
+                <dd>
+                  <p>
+                    <label>
+                      <input type="radio" name="u_reg" value="1" id="u_reg_0" />
+                      是</label>
+                    <label>
+                      <input name="u_reg" type="radio" id="u_reg_1" value="0" checked="checked" />
+                      否</label>
+                    <br />
+                  </p>
+                </dd>
+            </dl>
+            <dl>
+           	  <dt>会员备注：</dt>
+                <dd><textarea name="remark" cols="80" rows="2"></textarea></dd>
+            </dl>
+            <dl>
+            	<dt>激活状态：</dt>
+                <dd>
+                  <p>
+                    <label>
+                      <input name="status" type="radio" id="status_0" value="1" checked="checked" />
+                      激活</label>
+                    <label>
+                      <input name="status" type="radio" id="status_1" value="0" />
+                      未激活</label>
+                    <br />
+                  </p>
+                </dd>
+            </dl>
+            </div>
+			</div>
+		</div>
+        <div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+        <div class="tabsFooter">
+			<div class="tabsFooterContent"></div>
+		</div>
+        </form>
+		
+	</div>
+
+</div>
+<script type="text/javascript">
+var fileCount = 0;
+var addedFiles = 0;
+var fileLimit = 1;
+$(document).ready(function() {
+	var artadduploader	=	new	qq.FineUploader({
+		element: $('#artadd_attach')[0],
+		request:{
+			endpoint:"<?php echo U('Attach/memberuploadimg');?>",
+			forceMultipart: true,
+			inputName: 'attach'
+			},
+		multiple: false,
+		validation:{
+			allowedExtensions:['jpg', 'gif', 'png', 'jpeg']
+			},
+		callbacks:{
+			onComplete: function(id, fileName, responseJSON ){
+					if (responseJSON.success) {
+						$("#artadd_attachmentid").val( responseJSON.id );
+						$("#artadd_thumbimg").attr("src" , responseJSON.attachmentPath);
+					}
+					if( responseJSON.error ){
+						alert( responseJSON.error );
+					}
+				}
+			},
+		debug: true
+		});
+});
+</script>

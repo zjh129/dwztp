@@ -1,0 +1,218 @@
+<h2 class="contentTitle">会员编辑</h2>
+<div style="display:block; overflow:hidden; line-height:21px;">
+	<div class="tabs">
+		<div class="tabsHeader">
+			<div class="tabsHeaderContent">
+				<ul>
+      		        <li><a href="javascript:;"><span>常规信息</span></a></li>
+				</ul>
+			</div>
+		</div>
+        <form method="post" action="__ACTION__" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+        <input type="hidden" name="id" value="{$udata.id}" />
+		<div class="tabsContent" layoutH="115">
+			<div>
+            <div class="pageFormContent nowrap" layoutH="158">
+            <dl>
+				<dt>帐号：</dt>
+				<dd>{$udata.account}
+				</dd>
+			</dl>
+            <dl>
+				<dt>密码：</dt>
+				<dd>
+					<input type="password" id="password" name="password" maxlength="20" style="width:200px;" class="alphanumeric"  minlength="6" maxlength="20" alt="字母、数字、下划线 6-20位" />
+					<span class="info">若不修改密码请留空</span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>重复密码：</dt>
+				<dd>
+				  <input type="password" name="r_password" maxlength="20" style="width:200px;"  class="" equalto="#password" />
+					<span class="info">若修改密码，请重复输入密码</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>真实姓名：</dt>
+				<dd>
+					<input type="text" name="u_name" style="width:200px;" class="required" value="{$udata.u_name}" />
+					<span class="info">请输入会员真实姓名</span>
+				</dd>
+			</dl>
+            <dl>
+			  <dt>电话号码：</dt>
+				<dd>
+				  <input type="text" name="u_phone" class="required phone" value="{$udata.u_phone}" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>学校：</dt>
+				<dd>
+				  <input type="text" name="u_school" style="width:300px;" class="required" value="{$udata.u_school}" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>班级：</dt>
+				<dd>
+				  <input type="text" name="u_grade" style="width:300px;" class="required" value="{$udata.u_grade}" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>是否VIP：</dt>
+				<dd>
+				  <p>
+				    <label>
+				      <input type="radio" name="u_vip" value="1" id="u_vip_0"<eq name="udata.u_vip" value="1"> checked="checked"</eq> />
+				      是</label>
+				    <label>
+				      <input name="u_vip" type="radio" id="u_vip_1" value="0"<eq name="udata.u_vip" value="0"> checked="checked"</eq> />
+				      否</label>
+				    <br />
+			      </p>
+				  <span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+			  <dt>地址：</dt>
+				<dd>
+				  <input type="text" name="u_address" style="width:300px;" class="" value="{$udata.u_address}" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>生日：</dt>
+				<dd>
+				  <input type="text" name="u_birthday" readonly="true" class="date" value="{$udata.u_birthday}" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+            	<dt>缩略图：</dt>
+                <dd>
+                <input name="u_photo" id="artadd_attachmentid" value="{$udata.u_photo}" type="hidden">
+				<div id="artadd_attach"></div>
+				<span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+            	<dt>图片预览：</dt>
+                <dd>
+                <img name="thumbimg" id="artadd_thumbimg" src="<empty name="udata.u_photo">__PUBLIC__/images/no_picture.jpg<else />__ROOT__{$udata.savepath}{$udata.thumbname}</empty>" />
+                </dd>
+            </dl>
+            <dl>
+				<dt>QQ号码：</dt>
+				<dd>
+				  <input type="text" name="u_qq" class="digits" value="{$udata.u_qq}" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+				<dt>邮箱地址：</dt>
+				<dd>
+				  <input type="text" name="u_email" style="width:300px;" class="email" value="{$udata.u_email}" />
+					<span class="info"></span>
+				</dd>
+			</dl>
+            <dl>
+            	<dt>选择课程：</dt>
+                <dd>
+                  <label for="u_course"></label>
+                  <select name="u_course" id="u_course">
+                  	<volist name="course_config_data" id="vo">
+                    <option value="{$vo}"<eq name="udata.u_course" value="$vo"> selected="selected"</eq>>{$vo}</option>
+                    </volist>
+                  </select>
+                </dd>
+            </dl>
+            <dl>
+           	  <dt>选择拟学习时间：</dt>
+                <dd><input type="text" name="u_time" readonly="true" class="date" value="{$udata.u_time}" /></dd>
+            </dl>
+            <dl>
+            	<dt>选择拟学习班级：</dt>
+                <dd><input type="text" name="u_lever" style="width:400px;" value="{$udata.u_lever}" /></dd>
+            </dl>
+            <dl>
+            	<dt>是否交费：</dt>
+                <dd>
+                  <p>
+                    <label>
+                      <input type="radio" name="u_reg" value="1" id="u_reg_0"<eq name="udata.u_reg" value="1"> checked="checked"</eq> />
+                      是</label>
+                    <label>
+                      <input name="u_reg" type="radio" id="u_reg_1" value="0"<eq name="udata.u_reg" value="0"> checked="checked"</eq> />
+                      否</label>
+                    <br />
+                  </p>
+                </dd>
+            </dl>
+            <dl>
+           	  <dt>会员备注：</dt>
+                <dd><textarea name="remark" cols="80" rows="2">{$udata.remark}</textarea></dd>
+            </dl>
+            <dl>
+            	<dt>激活状态：</dt>
+                <dd>
+                  <p>
+                    <label>
+                      <input name="status" type="radio" id="status_0" value="1"<eq name="udata.status" value="1"> checked="checked"</eq> />
+                      激活</label>
+                    <label>
+                      <input name="status" type="radio" id="status_1" value="0"<eq name="udata.status" value="0"> checked="checked"</eq> />
+                      未激活</label>
+                    <br />
+                  </p>
+                </dd>
+            </dl>
+            </div>
+			</div>
+		</div>
+        <div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+        <div class="tabsFooter">
+			<div class="tabsFooterContent"></div>
+		</div>
+        </form>
+		
+	</div>
+
+</div>
+<script type="text/javascript">
+var fileCount = 0;
+var addedFiles = 0;
+var fileLimit = 1;
+$(document).ready(function() {
+	var artadduploader	=	new	qq.FineUploader({
+		element: $('#artadd_attach')[0],
+		request:{
+			endpoint:"{:U('Attach/memberuploadimg')}",
+			forceMultipart: true,
+			inputName: 'attach'
+			},
+		multiple: false,
+		validation:{
+			allowedExtensions:['jpg', 'gif', 'png', 'jpeg']
+			},
+		callbacks:{
+			onComplete: function(id, fileName, responseJSON ){
+					if (responseJSON.success) {
+						$("#artadd_attachmentid").val( responseJSON.id );
+						$("#artadd_thumbimg").attr("src" , responseJSON.attachmentPath);
+					}
+					if( responseJSON.error ){
+						alert( responseJSON.error );
+					}
+				}
+			},
+		debug: true
+		});
+});
+</script>

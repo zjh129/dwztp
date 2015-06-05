@@ -1,0 +1,100 @@
+<div class="pageContent">
+  <form method="post" action="{:U('Attribute/edit')}" class="pageForm required-validate" onSubmit="return validateCallback(this, dialogAjaxDone);">
+  <input type="hidden" name="attr_id" id="attr_id" value="{$data.attr_id}" />
+    <div class="pageFormContent" layoutH="56">
+      <dl>
+        <dt>属性名称：</dt>
+        <dd>
+          <input name="attr_name" class="required" type="text" size="30" value="{$data.attr_name}" />
+        </dd>
+      </dl>
+      <dl>
+        <dt>所属商品类型：</dt>
+        <dd>
+          <label for="type_id"></label>
+          <select name="type_id" id="type_id" class="combox">
+          <volist name="goodstype_list" id="vo">
+          <option value="{$vo.type_id}"<eq name="vo.type_id" value="$data.type_id"> selected</eq>>{$vo.type_name}</option>
+          </volist>
+          </select>
+        </dd>
+      </dl>
+      <dl class="nowrap">
+        <dt>属性是否可选：</dt>
+        <dd style="width:350px;">
+          <label style="width:100px; float:left;">
+            <input name="attr_type" type="radio" id="attr_type_0" value="0"<eq name="data.attr_type" value="0"> checked="checked"</eq> />
+            唯一属性</label>
+          <label style="width:100px; float:left;">
+            <input type="radio" name="attr_type" value="1" id="attr_type_1"<eq name="data.attr_type" value="1"> checked="checked"</eq> />
+            单选属性</label>
+          <label style="width:100px; float:left;">
+            <input type="radio" name="attr_type" value="2" id="attr_type_2"<eq name="data.attr_type" value="2"> checked="checked"</eq> />
+            复选属性</label>
+        </dd>
+      </dl>
+      <dl class="nowrap">
+        <dt>该属性值的录入方式：</dt>
+        <dd style="width:520px;">
+          <label style="width:100px; float:left;">
+            <input name="attr_input_type" type="radio" id="attr_input_type_0" value="0"<eq name="data.attr_input_type" value="0"> checked="checked"</eq> />
+            手工录入</label>
+          <label style="width:280px; float:left;">
+            <input type="radio" name="attr_input_type" value="1" id="attr_input_type_1"<eq name="data.attr_input_type" value="1"> checked="checked"</eq> />
+            从下面的列表中选择（一行代表一个可选值）</label>
+          <label style="width:100px; float:left;">
+            <input type="radio" name="attr_input_type" value="2" id="attr_input_type_2"<eq name="data.attr_input_type" value="2"> checked="checked"</eq> />
+            多行文本框</label>
+        </dd>
+      </dl>
+      <dl class="nowrap">
+        <dt>可选值列表：</dt>
+        <dd>
+          <label for="attr_value"></label>
+          <textarea name="attr_value" id="attr_value" cols="45" rows="5">{$data.attr_value}</textarea>
+        </dd>
+      </dl>
+      <dl>
+        <dt>排序值：</dt>
+        <dd>
+          <label for="sort"></label>
+          <input type="text" class="required digits" name="sort" id="sort" value="{$data.sort}" />
+        </dd>
+      </dl>
+    </div>
+    <div class="formBar">
+      <ul>
+        <!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+        <li>
+          <div class="buttonActive">
+            <div class="buttonContent">
+              <button type="submit">保存</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="button">
+            <div class="buttonContent">
+              <button type="button" class="close">取消</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+$(function(){
+	<neq name="data.attr_input_type" value="1">$("#attr_value").attr({disabled:true});</neq>
+	$("input[name='attr_input_type']").change(function(){
+		if(this.value==1){
+			$("#attr_value").attr({disabled:false});
+			$("#attr_value").addClass("required");
+		}else{
+			$("#attr_value").val("");
+			$("#attr_value").removeClass("required");
+			$("#attr_value").attr({disabled:true});
+		}
+	});
+});
+</script>

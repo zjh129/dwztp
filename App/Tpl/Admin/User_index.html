@@ -1,0 +1,99 @@
+<form id="pagerForm" method="post" action="#rel#">
+  <input type="hidden" name="pageNum" value="1" />
+  <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+  <input type="hidden" name="keywords" value="{$keywords}" />
+</form>
+<div class="pageHeader">
+  <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="{:U('User/index')}" method="post">
+    <div class="searchBar">
+      <ul class="searchContent">
+        <li>
+          <label>关键词搜索：</label>
+          <input type="text" name="keywords" value="{$keywords}"/>
+        </li>
+      </ul>
+      <div class="subBar">
+        <ul>
+          <li>
+            <div class="buttonActive">
+              <div class="buttonContent">
+                <button type="submit">搜索</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="pageContent">
+  <div class="panelBar">
+    <ul class="toolBar">
+      <php>if( ishavepower('User/add') ){</php><li><a class="add" href="{:U('User/add')}" mask="true" target="dialog" width="800" height="400"><span>添加</span></a></li><php>}</php> 
+      <li class="line">line</li>
+      <php>if( ishavepower('User/edit') ){</php><li><a class="edit" href="{:U('User/edit')}?uid={sid_user}" mask="true" target="dialog" width="800" height="400" warn="请选择一个用户"><span>修改</span></a></li><php>}</php> 
+      <li class="line">line</li>
+      <php>if( ishavepower('User/batchdel') ){</php><li><a title="确实要删除这些用户吗?" target="selectedTodo" rel="ids" postType="string" href="{:U('User/batchdel')}" class="delete"><span>批量删除</span></a></li><php>}</php> 
+    </ul>
+  </div>
+  <table class="table" layoutH="138" width="100%">
+    <thead>
+      <tr>
+        <th><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+        <th orderField="accountNo" class="asc">用户帐号</th>
+        <th orderField="accountName">用户名称</th>
+        <th orderField="accountRole">所属角色</th>
+        <th>电子邮箱</th>
+        <th orderField="accountType">最后登陆时间</th>
+        <th orderField="accountCert">最后登录IP</th>
+        <th align="center" orderField="accountLevel">登录次数</th>
+        <th>创建日期</th>
+        <th>激活状态</th>
+        <th align="center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <volist name="list" id="vo">
+        <tr target="sid_user" rel="{$vo.id}">
+          <td><input name="ids" value="{$vo.id}" type="checkbox"></td>
+          <td>{$vo.account}</td>
+          <td>{$vo.nickname}</td>
+          <td>{$vo.role_list}</td>
+          <td>{$vo.email}</td>
+          <td><notempty name="vo.last_login_time">{$vo.last_login_time|date="Y-m-d H:i:s",###}</notempty></td>
+          <td><notempty name="vo.last_login_ip">{$vo.last_login_ip}</notempty></td>
+          <td>{$vo.login_count}</td>
+          <td><notempty name="vo.create_time">{$vo.create_time|date="Y-m-d H:i:s",###}</notempty></td>
+          <td>
+          <php>if( ishavepower('User/c_status') ){</php>
+          <eq name="vo.status" value="1">
+            <a target="ajaxTodo" href="{:U('User/c_status')}?act=0&uid={$vo.id}"><img src="__PUBLIC__/images/ok.gif" /></a>
+            <else/>
+            <a target="ajaxTodo" href="{:U('User/c_status')}?act=1&uid={$vo.id}"><img src="__PUBLIC__/images/locked.gif" />
+            </eq>
+            <php>}</php> 
+            </td>
+          <td align="center">
+          <php>if( ishavepower('User/view') ){</php><a title="查看" mask="true" target="dialog" width="800" height="400" href="{:U('User/view')}?uid={$vo.id}" class="btnView">查看</a><php>}</php> 
+          <php>if( ishavepower('User/edit') ){</php><a title="基本信息编辑" mask="true" target="dialog" width="800" height="400" href="{:U('User/edit')}?uid={$vo.id}" class="btnEdit">编辑</a><php>}</php> 
+          <php>if( ishavepower('User/del') ){</php><a title="删除" target="ajaxTodo" href="{:U('User/del')}?uid={$vo.id}" class="btnDel">删除</a><php>}</php> 
+          <!--<a title="用户所属角色编辑" width="800" height="400" target="dialog" href="{:U('User/RoleEdit',array('uid'=>$vo['id']))}" class="btnEdit">权限编辑</a>-->
+          </td>
+        </tr>
+      </volist>
+    </tbody>
+  </table>
+  <div class="panelBar">
+    <div class="pages"> <span>显示</span>
+      <select class="combox" name="numPerPage" onChange="navTabPageBreak({numPerPage:this.value})">
+       <option value="5"<eq name="numPerPage" value="5"> selected="selected"</eq>>5</option>
+      	<option value="10"<eq name="numPerPage" value="10"> selected="selected"</eq>>10</option>
+        <option value="20"<eq name="numPerPage" value="20"> selected="selected"</eq>>20</option>
+        <option value="50"<eq name="numPerPage" value="50"> selected="selected"</eq>>50</option>
+        <option value="100"<eq name="numPerPage" value="100"> selected="selected"</eq>>100</option>
+        <option value="200"<eq name="numPerPage" value="200"> selected="selected"</eq>>200</option>
+      </select>
+      <span>条，共{$totalCount}条</span> </div>
+    <div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+  </div>
+</div>

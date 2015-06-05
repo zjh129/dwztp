@@ -1,0 +1,41 @@
+<div class="pageContent">
+  <form method="post" action="{:U('User/RoleEdit')}"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+  <!--用户所属角色编模版辑-->
+  <input type="hidden" name="uid" id="uid" value="{$user_info.id}" /><!--针对的用户编号-->
+  <input type="hidden" name="{$todo}"  value="1" />
+  <style type="text/css">
+  </style>
+    <div class="pageFormContent" layoutH="56">
+    <fieldset>
+		<legend>角色列表</legend>
+        <volist name="all_role_list" id="list">
+            <dl>
+			<dt>{$list.name}</dt>
+			<dd>
+             <input type="checkbox" name="role_list[]" value="{$list.id}" <if condition="isset($user_role_list[$list['id']])">checked="true"</if> />
+            </dd>
+		   </dl>
+        </volist>
+       
+	</fieldset>
+    </div>
+    <div class="formBar">
+      <ul>
+        <li>
+          <div class="buttonActive">
+            <div class="buttonContent">
+              <button type="submit">保存</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="button">
+            <div class="buttonContent">
+              <button type="button" class="close">取消</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>

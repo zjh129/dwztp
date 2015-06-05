@@ -1,0 +1,88 @@
+<form id="pagerForm" method="post" action="#rel#">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="{$numPerPage}" />
+    <input type="hidden" name="keywords" value="{$keywords}" />
+    <input type="hidden" name="type" value="{$type}" />
+</form>
+
+
+<div class="pageHeader">
+	<form rel="pagerForm"onsubmit="return navTabSearch(this);" action="__ACTION__" method="post">
+	<div class="searchBar">
+		<table class="searchContent">
+			<tr>
+				<td>
+					关键字：<input type="text" value="{$keywords}" name="keywords" />
+				</td>
+				<td>
+					<select class="combox" name="type">
+                    	<option value="0">请选择</option>
+                    	<volist name="link_type" key="k" id="vo">
+                        <option value="{$k}" <eq name="k" value="$type"> selected="selected"</eq>>{$vo}</option>
+                        </volist>
+                    </select>
+				</td>
+			</tr>
+		</table>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+		  </ul>
+	  </div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<php>if( ishavepower('Link/add') ){</php><li><a class="add" href="{:U('Link/add')}" target="navTab" rel="link_add"><span>添加友情链接</span></a></li><php>}</php>
+            <php>if( ishavepower('Link/edit') ){</php><li><a class="edit" href="{:U('Link/edit')}?linkid={linkid}" target="navTab" rel="link_edit" title="编辑友情链接" warn="请指定要修改的友情链接"><span>修改友情链接</span></a></li><php>}</php>
+            <li class="line">line</li>
+            <php>if( ishavepower('Link/create_cache') ){</php><li><a class="icon" href="{:U('Link/create_cache')}" target="ajaxTodo" ><span>更新友情链接缓存</span></a></li><php>}</php>
+		</ul>
+	</div>
+	<table class="table" layoutH="138" width="100%">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>标题</th>
+				<th>URL</th>
+				<th>排序</th>
+				<th>类目</th>
+				<th>状态</th>
+				<th>添加时间</th>
+				<th align="center">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+        <volist name="list" id="vo">
+			<tr target="linkid" rel="{$vo.id}">
+				<td>{$vo.id}</td>
+				<td>{$vo.title}</td>
+				<td>{$vo.url}</td>
+				<td>{$vo.sort}</td>
+				<td>{$link_type[ $vo['type'] ]}</td>
+				<td><eq name="vo.status" value="1"><a target="ajaxTodo" href="{:U('Link/change_status',array('link_id' => $vo['id'],'status' => 0))}"><img src="__PUBLIC__/images/ok.gif" /></a><else/><a target="ajaxTodo" href="{:U('Link/change_status',array('link_id' => $vo['id'],'status'=>1))}"><img src="__PUBLIC__/images/error.gif" /></eq></td>
+				<td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+				<td align="center">
+                    <php>if( ishavepower('Link/edit') ){</php><a title="编辑" target="navTab" rel="link_edit" href="{:U('Link/edit',array('linkid'=>$vo['id']))}" class="btnEdit">编辑</a><php>}</php>
+                    <php>if( ishavepower('Link/del') ){</php><a title="你确定删除该友情链接吗？" target="ajaxTodo" href="{:U('Link/del',array('linkid'=>$vo['id']))}" class="btnDel">删除</a><php>}</php>
+                </td>
+			</tr>
+           </volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"> <span>显示</span>
+      <select class="combox" name="numPerPage" onChange="navTabPageBreak({numPerPage:this.value})">
+       <option value="5"<eq name="numPerPage" value="5"> selected="selected"</eq>>5</option>
+      	<option value="10"<eq name="numPerPage" value="10"> selected="selected"</eq>>10</option>
+        <option value="20"<eq name="numPerPage" value="20"> selected="selected"</eq>>20</option>
+        <option value="50"<eq name="numPerPage" value="50"> selected="selected"</eq>>50</option>
+        <option value="100"<eq name="numPerPage" value="100"> selected="selected"</eq>>100</option>
+        <option value="200"<eq name="numPerPage" value="200"> selected="selected"</eq>>200</option>
+      </select>
+      <span>条，共{$totalCount}条</span> </div>
+    <div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

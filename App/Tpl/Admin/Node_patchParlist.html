@@ -1,0 +1,10 @@
+<select class="combox" name="{$param.inputName}">
+<volist name="nodeList" id="vo">
+	<option value="{$vo.id}">{$vo.title}</option>
+    <notempty name="vo._child">
+        <volist name="vo._child" id="chivo1">
+        <option value="{$chivo1.id}">---{$chivo1.title}</option>
+        </volist>
+    </notempty>
+</volist>
+</select>

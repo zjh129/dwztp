@@ -1,0 +1,124 @@
+<html>
+<head>
+<TITLE>访问<php>echo $_SERVER['HTTP_HOST'];</php>--{$msgTitle}</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv='Refresh' content='{$waitSecond};URL={$jumpUrl}'>
+<STYLE type=text/css>
+A:link {
+	COLOR: #555555;
+	TEXT-DECORATION: none;
+}
+A:visited {
+	COLOR: #555555;
+	TEXT-DECORATION: none;
+}
+A:active {
+	COLOR: #555555;
+	TEXT-DECORATION: none;
+}
+A:hover {
+	COLOR: #6f9822;
+	TEXT-DECORATION: none;
+}
+.text {
+	FONT-SIZE: 12px;
+	COLOR: #555555;
+	FONT-FAMILY: "";
+	TEXT-DECORATION: none;
+}
+.STYLE1 {
+	font-size: 13px
+}
+.STYLE2 {
+	font-size: 12px
+}
+.STYLE3 {
+	font-size: 11px
+}
+</STYLE>
+</head>
+<BODY>
+　
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+  <TR>
+    <TD vAlign="center" align="middle"><TABLE cellSpacing=0 cellPadding=0 align=center border=0>
+        <TR>
+          <TD height=17><IMG height=17 src="__PUBLIC__/images/co_01.gif" width=17></TD>
+          <TD background="__PUBLIC__/images/bg01.gif"></TD>
+          <TD height=17><IMG height=17 src="__PUBLIC__/images/co_02.gif" width=17></TD>
+        </TR>
+        <TR>
+          <TD background="__PUBLIC__/images/bg02.gif"></TD>
+          <TD><TABLE class=text cellSpacing=0 cellPadding=10 width="100%" align=center border=0>
+              <TR>
+                <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TR>
+                      <TD width=20>　</TD>
+                      <TD align="center" ><present name="message">
+<font color="#0000FF" size="+3">{$msgTitle}</font>
+<else/>
+<font color="#FF0000" size="+3">{$msgTitle}</font>
+</present></TD>
+                    </TR>
+                  </TABLE></TD>
+              </TR>
+              <TR>
+                <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TR>
+                      <TD background="__PUBLIC__/images/dot_01.gif" height=1></TD>
+                    </TR>
+                    </TBODY>
+                    
+                  </TABLE>
+                  <BR>
+                  <TABLE class=text cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TR>
+                      <TD width=20>　</TD>
+                      <TD>
+                      <div style="border:#090 1px solid; padding:5px;">
+                      	<p>
+                          <present name="message" >
+                          <span class="success"style="font-weight:bold;">{$message}</span>
+                            <else/>
+                            <span class="error" style="font-weight:bold;">{$error}</span></present>
+                            </p>
+                        <present name="closeWin" > 页面将在 <span class="wait">{$waitSecond}</span> 秒后自动关闭，如果不想等待请点击 <a href="{$jumpUrl}"><font color="#BA1C1C">这里</font></a> 关闭
+                          <else/>
+                          页面将在 <span class="wait">{$waitSecond}</span> 秒后自动跳转，如果不想等待请点击 <a href="{$jumpUrl}"><font color="#BA1C1C">这里</font></a> 跳转 </present>
+                        </div>
+                        <BR>
+                        请尝试以下操作：
+                        </P>
+                        <P>·如果您已经在地址栏中输入该网页的地址，请确认其拼写正确。<BR>
+                          ·打开<A href="http://<php>echo $_SERVER['HTTP_HOST'];</php>/"><font color="#BA1C1C">
+                          <php>echo $_SERVER['HTTP_HOST'];</php>
+                          </font></A>主页，然后查找指向您感兴趣信息的链接。<BR>
+                          ·单击<A href="javascript:history.back(1)"><font color="#BA1C1C">后退</font></A>链接，尝试其他链接。<BR>
+                          ·单击单击<A href="javascript:doSearch()"><font color="#BA1C1C">搜索</font></A>链接，寻找Internet上的信息。</P>
+                        <P align="right">如果您在浏览本站时，多次出现此错误，请与管理员<A href="mailto:zhaojianhui129@163.com?subject=报告错误">联系</A>&nbsp;</P>
+                        <div align="right">管理员QQ：421253081&nbsp; </div></TD>
+                    </TR>
+                  </TABLE></TD>
+              </TR>
+            </TABLE></TD>
+          <TD background="__PUBLIC__/images/bg03.gif"></TD>
+        </TR>
+        <TR>
+          <TD height=17><IMG height=17 src="__PUBLIC__/images/co_03.gif" width=17></TD>
+          <TD background="__PUBLIC__/images/bg04.gif" height=17></TD>
+          <TD height=17><IMG height=17 src="__PUBLIC__/images/co_04.gif" width=17></TD>
+        </TR>
+      </TABLE>
+      <TABLE class=text cellSpacing=0 cellPadding=0 width=500 align=center border=0>
+        <TR>
+          <TD></TD>
+        </TR>
+        <TR>
+          <TD align="middle"></TD>
+        </TR>
+      </TABLE></TD>
+  </TR>
+  </TBODY>
+  
+</TABLE>
+</BODY>

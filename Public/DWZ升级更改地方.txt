@@ -1,0 +1,12 @@
+[dwz.core.js]
+line 111：ajaxDone方法加了一个判断
+else if (json.statusCode == DWZ.statusCode.changepwd) {
+	if(alertMsg) alertMsg.correct(json.message || DWZ.msg("sessionTimout"), {okCall:DWZ.loadLogin});
+	else DWZ.loadLogin();
+}
+
+
+[dwz.tree.js]
+
+line 126：
+node.children().wrap("<div></div>");改成了node.children(":first").wrap("<div></div>");加了个first的判断，避免渲染树形结构的时候将不必要的代码也渲染了

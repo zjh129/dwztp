@@ -1,0 +1,18 @@
+<div class="pageContent">
+<h2 class="contentTitle">角色用户选取</h2>
+<form method="post" action="{:U('Role/selectuser')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+<input type="hidden" name="role_id" id="role_id" value="{$roleid}" />
+	<div class="pageFormContent" layoutH="98">
+    <volist name="userlist" id="vo">
+		<label><input type="checkbox" name="user[]" value="{$vo.id}"<php>if(in_array( $vo['id'] , $roleuserlist )){ echo ' checked';}</php> />{$vo.account} {$vo.nickname}</label>
+    </volist>
+	</div>
+	<div class="formBar">
+		<label style="float:left"><input type="checkbox" class="checkboxCtrl" group="user[]" />全选</label>
+		<ul>
+			<li><div class="button"><div class="buttonContent"><button type="button" class="checkboxCtrl" group="user[]" selectType="invert">反选</button></div></div></li>
+			<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+		</ul>
+	</div>
+</form>
+</div>

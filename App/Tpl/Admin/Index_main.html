@@ -1,0 +1,14 @@
+<h2 class="contentTitle">系统信息</h2>
+<fieldset>
+  <legend>版权信息</legend>
+  <div style="padding:10px;">本系统基于国内知名的PHP框架-TinkPHP，免费开源.</div>
+</fieldset>
+<fieldset>
+  <legend>系统参数</legend>
+  <volist name="info" id="vo">
+    <dl class="nowrap">
+      <dt style="width:150px; color:#090;">{$key}</dt>
+      <dd>{$vo}</dd>
+    </dl>
+  </volist>
+</fieldset>

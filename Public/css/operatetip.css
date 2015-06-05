@@ -1,0 +1,20 @@
+@import url(basic.css);
+
+body{background:#fff;}
+a:link,a:visited{color:#3B65AE;}
+
+.wrapper{width:300px;padding:5px;position:absolute;top:50%;left:50%;margin-top:-150px;margin-left:-155px;background:#E8EFFF;font-size:77%;}
+.wrapper .box{background:#fff;border:#CCD8FF 1px solid;}
+.content{padding:30px 22px 0;border-bottom:#E2E2E2 1px solid;}
+.content .title{display:block;padding-left:37px;font:133% "Microsoft Yahei";line-height:22px;background-repeat:no-repeat;background-position:0 0;}
+.success .content .title{color:#35A200;background-image:url(../images/info_success_mini.gif);}
+.error .content .title{color:#f00;background-image:url(../images/info_error_mini.gif);}
+.content .info{padding:12px 0 36px 37px;line-height:21px;}
+.buttons{padding:7px 0 6px;background:#F4F4F4;border:#fff 1px solid;border-top:none;text-align:center;}
+
+.buttonwrap{display:inline-block;background:url(../images/buttons-2.png) no-repeat 0 0;vertical-align:middle;margin:0 0.3em 0 0;height:26px;overflow:hidden;}
+.buttonwrap .inner{display:inline-block;background:url(../images/buttons-2.png) no-repeat right -26px;}
+.buttonwrap .inner .button{display:inline-block;border:none;height:26px;line-height:26px;padding:0 8px;color:#225db6;background-color:transparent;background-repeat:no-repeat;background-position:7px 50%;overflow:hidden;text-decoration:none;}
+.buttonwrap:hover{background-position:0 -52px;text-decoration:none;}
+.buttonwrap:hover .inner{background-position:100% -78px;}
+.buttonwrap:hover .button{color:#c26e00;}

@@ -1,0 +1,123 @@
+<h2 class="contentTitle">友情链接添加</h2>
+<div style="display:block; overflow:hidden; line-height:21px;">
+	<div class="tabs">
+		<div class="tabsHeader">
+			<div class="tabsHeaderContent">
+				<ul>
+      		        <li><a href="javascript:;"><span>常规信息</span></a></li>
+				</ul>
+			</div>
+		</div>
+        <form method="post" action="__ACTION__" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDone)">
+        <input type="hidden" name="id" value="{$linkdata.id}" />
+		<div class="tabsContent" layoutH="115">
+			<div>
+            <div class="pageFormContent nowrap" layoutH="158">
+            <dl>
+				<dt>标题：</dt>
+				<dd>
+					<input type="text" name="title" maxlength="20" style="width:400px;" class="required" value="{$linkdata.title}" />
+					<span class="info">请输入友情链接名称</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>URL：</dt>
+				<dd>
+                	<input type="text" name="url" style="width:400px;" class="required url" value="{$linkdata.url}" />
+                    <span class="info">请输入友情链接地址</span>
+				</dd>
+			</dl>
+            <dl>
+           	  <dt>LOGO：</dt>
+                <dd>
+                <input name="logo" id="artadd_attachmentid" value="{$linkdata.logo}" type="hidden">
+				<div id="artadd_attach"></div>
+				<span class="info"></span>
+                </dd>
+            </dl>
+            <dl>
+            	<dt>图片预览：</dt>
+                <dd>
+                <img name="thumbimg" id="artadd_thumbimg" src="<empty name="linkdata.logo">__PUBLIC__/images/no_picture.jpg<else />__ROOT__{$linkdata.savepath}{$linkdata.thumbname}</empty>" />
+                </dd>
+            </dl>
+            <dl>
+            	<dt>类型：</dt>
+                <dd>
+                	<select class="combox" name="type">
+                    	<volist name="link_type" key="k" id="vo">
+                        <option value="{$k}"<eq name="k" value="$linkdata.type"> selected="selected"</eq>>{$vo}</option>
+                        </volist>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
+            	<dt>排序：</dt>
+                <dd><input type="text" name="sort" maxlength="20" style="width:50px;" value="{$linkdata.sort}" class="required digits" /></dd>
+            </dl>
+            <dl>
+            	<dt>描述：</dt>
+                <dd><textarea name="des" cols="80" rows="2">{$linkdata.des}</textarea></dd>
+            </dl>
+            <dl>
+            	<dt>状态：</dt>
+                <dd>
+               	  <p>
+                	  <label>
+                	    <input name="status" type="radio" id="status_0" value="1"<eq name="linkdata.status" value="1"> checked="checked"</eq> />
+                	    启用</label>
+                	  <label>
+                	    <input type="radio" name="status" value="0" id="status_1"<eq name="linkdata.status" value="0"> checked="checked"</eq> />
+                	    禁用</label>
+                	  <br />
+              	  </p>
+                </dd>
+            </dl>
+            </div>
+			</div>
+		</div>
+        <div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+        <div class="tabsFooter">
+			<div class="tabsFooterContent"></div>
+		</div>
+        </form>
+		
+	</div>
+
+</div>
+<script type="text/javascript">
+var fileCount = 0;
+var addedFiles = 0;
+var fileLimit = 1;
+$(document).ready(function() {
+	var artadduploader	=	new	qq.FineUploader({
+		element: $('#artadd_attach')[0],
+		request:{
+			endpoint:"{:U('Attach/linkuploadimg')}",
+			forceMultipart: true,
+			inputName: 'attach'
+			},
+		multiple: false,
+		validation:{
+			allowedExtensions:[{$allowtype}]
+			},
+		callbacks:{
+			onComplete: function(id, fileName, responseJSON ){
+					if (responseJSON.success) {
+						$("#artadd_attachmentid").val( responseJSON.id );
+						$("#artadd_thumbimg").attr("src" , responseJSON.attachmentPath);
+					}
+					if( responseJSON.error ){
+						alert( responseJSON.error );
+					}
+				}
+			},
+		debug: true
+		});
+});
+</script>
